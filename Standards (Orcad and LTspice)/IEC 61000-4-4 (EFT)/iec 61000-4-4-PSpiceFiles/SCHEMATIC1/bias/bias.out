@@ -1,0 +1,115 @@
+
+**** 01/16/23 10:25:16 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-bias"  [ c:\users\vladimir villamizar\downloads\digital input\sllm383c\k-pspicefiles\schematic1\bias.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "bias.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\cds_spb_home\cdssetup\OrCAD_PSpiceTIPSpice_Install\17.4.0\PSpice.ini file:
+.lib "nom_pspti.lib" 
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 400u 0 1n 
+.OPTIONS ADVCONV
+.OPTIONS FILEMODELSEARCH
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source K
+C_C1         0 N15055  6.04u  TC=0,0 
+R_R3         0 N15076  25.1 TC=0,0 
+R_R4         N15076 N15091  0.94 TC=0,0 
+L_L1         N15091 N15103  10.4u  
+R_R5         0 N15103  19.8 TC=0,0 
+X_U1         N15055 N15076 Sw_tClose PARAMS: tClose=10u ttran=1u Rclosed=0.01
++  Ropen=1Meg
+.IC         V(N15055 )=1kV
+
+**** RESUMING bias.cir ****
+.END
+
+**** 01/16/23 10:25:16 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-bias"  [ c:\users\vladimir villamizar\downloads\digital input\sllm383c\k-pspicefiles\schematic1\bias.sim ] 
+
+
+ ****     Voltage Controlled Switch MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.Smod       
+         RON     .01         
+        ROFF    1.000000E+06 
+         VON    1            
+        VOFF    0            
+
+
+**** 01/16/23 10:25:16 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-bias"  [ c:\users\vladimir villamizar\downloads\digital input\sllm383c\k-pspicefiles\schematic1\bias.sim ] 
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(N15055) 1000.0000 (N15076)     .0114 (N15091)     .0108 (N15103)     .0108     
+
+(X_U1.3)    0.0000 
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    X_U1.V1      0.000E+00
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 01/16/23 10:25:16 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-bias"  [ c:\users\vladimir villamizar\downloads\digital input\sllm383c\k-pspicefiles\schematic1\bias.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =      361.97
+  Total job time (using Solver 1)   =        2.20
+

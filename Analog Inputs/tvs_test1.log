@@ -1,0 +1,8 @@
+Circuit: * C:\Users\Vladimir Villamizar\Documents\Proyecto de grado\Analog Inputs\tvs_test1.asc
+
+i1: Removing PWL point (1e-12,5.10121e-05)
+i1: Removing PWL point (4.28012e-10,5.10121e-05)
+i1: Removing PWL point (1.12802e-09,5.10121e-05)
+i1: Removing PWL point (1.52802e-09,5.10121e-05)
+i1: Removing PWL point (1.82802e-09,5.10121e-05)
+Direct Newton iteration for .op point succeeded.

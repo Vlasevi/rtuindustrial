@@ -1,0 +1,26 @@
+Version 4
+SymbolType CELL
+LINE Normal 16 44 16 64
+LINE Normal 16 -32 16 -8
+LINE Normal 32 44 16 44
+LINE Normal 0 44 32 44
+LINE Normal 0 -8 16 -8
+LINE Normal 32 -8 0 -8
+LINE Normal 16 16 32 -8
+LINE Normal 0 -8 16 16
+LINE Normal 16 16 0 44
+LINE Normal 32 44 16 16
+LINE Normal 32 16 0 16
+LINE Normal 37 10 32 16
+LINE Normal -5 22 0 16
+WINDOW 0 24 -32 Left 0
+WINDOW 3 24 72 Left 0
+SYMATTR Value TVS
+SYMATTR Prefix X
+SYMATTR Description Diode
+PIN 16 -32 NONE 0
+PINATTR PinName +
+PINATTR SpiceOrder 1
+PIN 16 64 NONE 0
+PINATTR PinName -
+PINATTR SpiceOrder 2

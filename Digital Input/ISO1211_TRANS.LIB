@@ -1,0 +1,157 @@
+* CIP: NDA is required as of 08/29/2019
+*****************************************************************************
+* ISO1211
+*****************************************************************************
+* (C) Copyright 2018 Texas Instruments Incorporated. All rights reserved. 
+* TI Confidential - NDA Restrictions per NDA# xxxx-xx-xx-xxxxxM                                            
+*****************************************************************************
+** This model is designed as an aid for customers of Texas Instruments.
+** TI and its licensors and suppliers make no warranties, either expressed
+** or implied, with respect to this model, including the warranties of 
+** merchantability or fitness for a particular purpose.  The model is
+** provided solely on an "as is" basis.  The entire risk as to its quality
+** and performance is with the customer
+*****************************************************************************
+*
+* This model is subject to change without notice. Texas Instruments
+* Incorporated is not responsible for updating this model.
+*
+*****************************************************************************
+*
+* Released by:Texas Instruments Inc.
+* Part: ISO1211
+* Date: 04OCT2018
+* Model Type: TRANSIENT
+* Simulator: PSPICE
+* Simulator Version: 16.2.0.p001
+* EVM Order Number: ISO1211EVM
+* EVM Users Guide: SLLU258A–May 2017–Revised January 2018
+* Datasheet: SLLSEY7E -JUNE 2017-REVISED AUGUST 2018
+* Topologies Supported: NA
+*
+* Model Version: Final 1.20
+*
+*****************************************************************************
+*
+* Updates:
+*
+* Final 1.20
+* Bugfix : SENSE pin voltage has been kept as relative to FGND internally to correct FGND pin's behaviour in fault condition. 
+*
+* Final 1.10
+* Bugfix :Made input current dependent on input voltage and changed voltage transition threshold on field side as suggested by PL.
+*
+* Final 1.00
+* Release to Web.
+*
+*****************************************************************************
+*
+* Model Usage Notes:
+*
+* 1. The following features have been modeled
+*      a. Accurate Current Limit
+*      b. High Input-Voltage Range With Reverse Polarity Protection: ±60 V
+*      c. Propagation delay
+*      d. V-I characteristics
+*      e. VCC1 functionality
+*      f. Enable functionality
+*      g. Output rise and fall time
+*      h. Reverse current blocking
+* 2. Temperature effects, Quiescent current and CMTI have not been modeled. 
+*
+******************************************************************************
+.SUBCKT ISO1211_TRANS EN FGND GND1 IN OUT SENSE SUB VCC1  
+X_U20         VREG N17030740 IN_OUT AND2_BASIC_GEN PARAMS: VDD=1 VSS=0
++  VTHRESH=500E-3
+E_E32         N16856382 GND1 VCC1 GND1 0.4
+X_U689         OUT_P N16914896 BUF_BASIC_GEN PARAMS: VDD=1 VSS=0 VTHRESH=0.5
+X_U684         N16810737 IN_COMP d_d1 PARAMS:
+X_U19         UVLO1 N16856514 N16856441 AND2_BASIC_GEN PARAMS: VDD=1 VSS=0
++  VTHRESH=500E-3
+C_C8         GND1 OUT_P  1n  
+X_S8    ENP_OK GND1 OUT N16917650 ISO1211_TRANS_S8 
+R_R61         OUT_P N16810737  7 TC=0,0 
+V_V9         N16850498 GND1 2
+X_S6    N16914896 GND1 N16917650 VCC1 ISO1211_TRANS_S6 
+X_S7    N16916102 GND1 N16917650 GND1 ISO1211_TRANS_S7 
+V_V12         N168505410 GND1 0.2
+X_U691         EN N16856495 N16856382 N16856514 COMPHYS_BASIC_GEN PARAMS: VDD=1
++  VSS=0 VTHRESH=0.5
+X_U18         ENP_OK IN_OUT IN_COMP AND2_BASIC_GEN PARAMS: VDD=1 VSS=0
++  VTHRESH=500E-3
+R_R62         OUT_P N16809490  72.69 TC=0,0 
+X_U683         IN_COMP N16809490 d_d1 PARAMS:
+X_U690         N16914896 N16916102 INV_BASIC_GEN PARAMS: VDD=1 VSS=0
++  VTHRESH=500E-3
+E_E29         N16856495 GND1 VCC1 GND1 0.7
+E_ABM7         VREG 0 VALUE { LIMIT(0.25*V(N17114036),1.25,0)    }
+E_E33         N17114038 FGND N17114036 VREG 1
+X_U687         SENSE N17030694 N17030711 N17030740 COMPHYS_BASIC_GEN PARAMS:
++  VDD=1 VSS=0 VTHRESH=0.5
+E_E34         N17114036 GND1 SENSE FGND 1
+C_C5         GND1 ENP_OK  1n  
+V_V7         N17030711 FGND 0.65
+R_R64         ENP_OK N16856441  23 TC=0,0 
+V_V5         N17030694 FGND 7.75
+C_C7         GND1 OUT_P  1n  
+X_U688         VCC1 N16850498 N168505410 UVLO1 COMPHYS_BASIC_GEN PARAMS: VDD=1
++  VSS=0 VTHRESH=0.5
+R_R63         IN N17114038  1u TC=0,0 
+.ENDS ISO1211_TRANS
+*$
+.subckt ISO1211_TRANS_S8 1 2 3 4  
+S_S8         3 4 1 2 _S8
+RS_S8         1 2 1G
+.MODEL         _S8 VSWITCH Roff=1e6 Ron=50 Voff=0.2 Von=0.8
+.ends ISO1211_TRANS_S8
+*$
+.subckt ISO1211_TRANS_S6 1 2 3 4  
+S_S6         3 4 1 2 _S6
+RS_S6         1 2 1G
+.MODEL         _S6 VSWITCH Roff=1e6 Ron=1m Voff=0.2 Von=0.8
+.ends ISO1211_TRANS_S6
+*$
+.subckt ISO1211_TRANS_S7 1 2 3 4  
+S_S7         3 4 1 2 _S7
+RS_S7         1 2 1G
+.MODEL         _S7 VSWITCH Roff=1e6 Ron=1m Voff=0.2 Von=0.8
+.ends ISO1211_TRANS_S7
+*$
+.subckt d_d1 1 2
+d1 1 2 dd1
+.model dd1 d
++ is=1e-015
++ tt=1e-011
++ rs=0.05
++ n=0.01
+.ends d_d1
+*$
+.SUBCKT AND2_BASIC_GEN A B Y PARAMS: VDD=1 VSS=0 VTHRESH=0.5 
+E_ABMGATE    YINT 0 VALUE {{IF(V(A) > {VTHRESH}  &  
++ V(B) > {VTHRESH},{VDD},{VSS})}}
+RINT YINT Y 1
+CINT Y 0 1n
+.ENDS AND2_BASIC_GEN
+*$
+.SUBCKT COMPHYS_BASIC_GEN INP INM HYS OUT PARAMS: VDD=1 VSS=0 VTHRESH=0.5	
+EIN INP1 INM1 INP INM 1 
+EHYS INP1 INP2 VALUE { IF( V(1) > {VTHRESH},-V(HYS),0) }
+EOUT OUT 0 VALUE { IF( V(INP2)>V(INM1), {VDD} ,{VSS}) }
+R1 OUT 1 1
+C1 1 0 5n
+RINP1 INP1 0 1K
+.ENDS COMPHYS_BASIC_GEN
+*$
+.SUBCKT INV_BASIC_GEN A  Y PARAMS: VDD=1 VSS=0 VTHRESH=0.5 
+E_ABMGATE    YINT 0 VALUE {{IF(V(A) > {VTHRESH} , 
++ {VSS},{VDD})}}
+RINT YINT Y 1
+CINT Y 0 1n
+.ENDS INV_BASIC_GEN
+*$
+.SUBCKT BUF_BASIC_GEN A  X PARAMS: VTHRESH=0.5 VDD=1 VSS=0
+E_ABMGATE    YINT 0 VALUE {{IF(V(A) > {VTHRESH} , + {VDD},{VSS})}}
+RINT YINT X 1
+CINT X 0 1p
+.ENDS BUF_BASIC_GEN
+*$
